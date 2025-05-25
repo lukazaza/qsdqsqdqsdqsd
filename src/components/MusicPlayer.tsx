@@ -51,7 +51,7 @@ const MusicPlayer: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpe
           animate={{ x: 0 }}
           exit={{ x: -320 }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          className="fixed left-0 top-0 h-full w-80 bg-[#1A0F2E] shadow-xl z-40 pt-20"
+          className="fixed left-0 top-0 h-full w-full sm:w-80 bg-[#1A0F2E] shadow-xl z-40 pt-20"
         >
           <div className="p-4">
             <div className="flex items-center justify-between mb-6">
@@ -123,10 +123,10 @@ const MusicPlayer: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpe
                     <img
                       src={currentSong.coverArt}
                       alt={currentSong.title}
-                      className="w-40 h-40 mx-auto rounded-lg shadow-lg object-cover"
+                      className="w-32 sm:w-40 h-32 sm:h-40 mx-auto rounded-lg shadow-lg object-cover"
                     />
                   ) : (
-                    <div className="w-40 h-40 mx-auto bg-purple-900/50 rounded-lg flex items-center justify-center">
+                    <div className="w-32 sm:w-40 h-32 sm:h-40 mx-auto bg-purple-900/50 rounded-lg flex items-center justify-center">
                       <Music size={48} className="text-white/50" />
                     </div>
                   )}
