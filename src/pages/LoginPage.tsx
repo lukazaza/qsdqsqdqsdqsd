@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { LogIn, Mail, Lock, User } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { LogIn, Mail, Lock, User, Phone } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { motion } from 'framer-motion';
 
@@ -11,7 +11,8 @@ const LoginPage: React.FC = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    name: ''
+    name: '',
+    phone: ''
   });
   const [isLoading, setIsLoading] = useState(false);
 
@@ -33,7 +34,7 @@ const LoginPage: React.FC = () => {
       }
       navigate('/servers');
     } catch (error) {
-      console.error('Authentication error:', error);
+      console.error('Erreur d\'authentification:', error);
     } finally {
       setIsLoading(false);
     }
@@ -85,80 +86,123 @@ const LoginPage: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="text-center mb-8">
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", duration: 0.8 }}
+          className="text-center mb-8"
+        >
           <h1 className="text-3xl font-bold text-white mb-2">
-            {isLoginMode ? 'Welcome Back' : 'Create Account'}
+            {isLoginMode ? 'Bienvenue' : 'Créer un compte'}
           </h1>
           <p className="text-gray-300">
-            {isLoginMode ? 'Sign in to access exclusive Discord servers' : 'Join our community today'}
+            {isLoginMode ? 'Connectez-vous pour accéder aux serveurs Discord' : 'Rejoignez notre communauté'}
           </p>
-        </div>
+        </motion.div>
         
         <form onSubmit={handleSubmit} className="space-y-4">
           {!isLoginMode && (
-            <div className="relative">
-              <User size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-              <input
-                type="text"
-                name="name"
-                placeholder="Your name"
-                value={formData.name}
-                onChange={handleInputChange}
-                className="w-full bg-[#2D1B4E] border border-purple-900 rounded-md py-3 pl-10 pr-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-                required
-              />
-            </div>
+            <>
+              <motion.div 
+                className="relative"
+                initial={{ x: -50, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 0.2 }}
+              >
+                <User size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Votre nom"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  className="w-full bg-[#2D1B4E] border border-purple-900 rounded-md py-3 pl-10 pr-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                  required
+                />
+              </motion.div>
+
+              <motion.div 
+                className="relative"
+                initial={{ x: -50, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 0.3 }}
+              >
+                <Phone size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Numéro de téléphone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  className="w-full bg-[#2D1B4E] border border-purple-900 rounded-md py-3 pl-10 pr-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                  required
+                />
+              </motion.div>
+            </>
           )}
           
-          <div className="relative">
+          <motion.div 
+            className="relative"
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
             <Mail size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <input
               type="email"
               name="email"
-              placeholder="Email address"
+              placeholder="Adresse email"
               value={formData.email}
               onChange={handleInputChange}
               className="w-full bg-[#2D1B4E] border border-purple-900 rounded-md py-3 pl-10 pr-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
               required
             />
-          </div>
+          </motion.div>
           
-          <div className="relative">
+          <motion.div 
+            className="relative"
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.5 }}
+          >
             <Lock size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <input
               type="password"
               name="password"
-              placeholder="Password"
+              placeholder="Mot de passe"
               value={formData.password}
               onChange={handleInputChange}
               className="w-full bg-[#2D1B4E] border border-purple-900 rounded-md py-3 pl-10 pr-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
               required
             />
-          </div>
+          </motion.div>
           
-          <button
+          <motion.button
             type="submit"
             disabled={isLoading}
             className={`w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 px-4 rounded-md transition-colors flex items-center justify-center ${
               isLoading ? 'opacity-70 cursor-not-allowed' : ''
             }`}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
             <LogIn size={20} className="mr-2" />
-            {isLoading ? 'Processing...' : isLoginMode ? 'Sign In' : 'Create Account'}
-          </button>
+            {isLoading ? 'Traitement...' : isLoginMode ? 'Se connecter' : 'Créer un compte'}
+          </motion.button>
         </form>
         
         <div className="mt-6 text-center">
-          <button
+          <motion.button
             onClick={() => setIsLoginMode(!isLoginMode)}
             className="text-purple-400 hover:text-purple-300 transition-colors"
+            whileHover={{ scale: 1.05 }}
           >
-            {isLoginMode ? "Don't have an account? Sign up" : 'Already have an account? Sign in'}
-          </button>
+            {isLoginMode ? "Pas encore de compte ? S'inscrire" : 'Déjà un compte ? Se connecter'}
+          </motion.button>
         </div>
         
         <p className="text-gray-400 text-sm mt-6 text-center">
-          By continuing, you agree to our Terms of Service and Privacy Policy.
+          En continuant, vous acceptez nos Conditions d'utilisation et notre Politique de confidentialité.
         </p>
       </motion.div>
     </div>
