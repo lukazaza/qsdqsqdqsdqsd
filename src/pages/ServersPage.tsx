@@ -124,23 +124,7 @@ const ServersPage: React.FC = () => {
                 Clear filters
               </button>
             </div>
-          )}
-
-          {!showPromoted && (
-            <div className="mt-12 bg-gradient-to-r from-purple-900 to-indigo-900 rounded-xl p-8 text-center">
-              <h2 className="text-2xl font-bold text-white mb-4">Want to promote your server?</h2>
-              <p className="text-gray-300 mb-6">
-                Get featured placement, custom branding, and priority support for your Discord server.
-              </p>
-              <a
-                href="/shop"
-                className="inline-flex items-center bg-white text-purple-900 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors"
-              >
-                <Crown className="w-5 h-5 mr-2" />
-                Boost Your Server
-              </a>
-            </div>
-          )}
+          )}       
         </motion.div>
       </div>
     </div>
