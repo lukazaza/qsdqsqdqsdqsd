@@ -61,27 +61,27 @@ const ShopPage: React.FC = () => {
 
   const handlePurchase = (productId: string) => {
     setSelectedProduct(productId);
-    toast.success('Coming soon! This feature is under development.');
+    window.open('https://discord.gg/rz2eW6vucj', '_blank');
   };
 
   return (
     <div className="min-h-screen bg-[#0F0518] pt-24 pb-20">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
           <div className="text-center mb-12">
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
               Boost Your Server
             </h1>
-            <p className="text-gray-300 max-w-2xl mx-auto">
+            <p className="text-gray-300 max-w-2xl mx-auto px-4">
               Choose the perfect boost package to enhance your server's visibility and grow your community faster.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-6xl mx-auto">
             {products.map((product) => (
               <motion.div
                 key={product.id}
@@ -97,26 +97,26 @@ const ShopPage: React.FC = () => {
                   </div>
                 )}
 
-                <div className="p-6">
+                <div className="p-4 sm:p-6">
                   <div className="flex items-center justify-center w-12 h-12 bg-[#2D1B4E] rounded-lg mb-4">
                     {product.icon}
                   </div>
 
-                  <h3 className="text-xl font-bold text-white mb-2">{product.name}</h3>
-                  <p className="text-gray-300 mb-4">{product.description}</p>
+                  <h3 className="text-lg sm:text-xl font-bold text-white mb-2">{product.name}</h3>
+                  <p className="text-gray-300 mb-4 text-sm sm:text-base">{product.description}</p>
 
                   <div className="mb-6">
-                    <span className="text-3xl font-bold text-white">${product.price}</span>
+                    <span className="text-2xl sm:text-3xl font-bold text-white">${product.price}</span>
                     <span className="text-gray-400 ml-1">/boost</span>
                   </div>
 
                   <ul className="space-y-3 mb-6">
                     {product.features.map((feature, index) => (
-                      <li key={index} className="flex items-center text-gray-300">
-                        <svg className="w-4 h-4 text-purple-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <li key={index} className="flex items-center text-gray-300 text-sm sm:text-base">
+                        <svg className="w-4 h-4 text-purple-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                         </svg>
-                        {feature}
+                        <span>{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -138,16 +138,16 @@ const ShopPage: React.FC = () => {
             ))}
           </div>
 
-          <div className="mt-16 text-center">
-            <h2 className="text-2xl font-bold text-white mb-4">Need a Custom Solution?</h2>
+          <div className="mt-16 text-center px-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-white mb-4">Need a Custom Solution?</h2>
             <p className="text-gray-300 mb-6">
               Contact us for custom packages tailored to your server's specific needs.
             </p>
             <motion.button
-              className="bg-transparent border-2 border-purple-500 text-white px-8 py-3 rounded-lg hover:bg-purple-500/20 transition-colors"
+              className="bg-transparent border-2 border-purple-500 text-white px-6 sm:px-8 py-3 rounded-lg hover:bg-purple-500/20 transition-colors text-sm sm:text-base"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => toast.success('Contact form coming soon!')}
+              onClick={() => window.open('https://discord.gg/rz2eW6vucj', '_blank')}
             >
               Contact Sales
             </motion.button>
