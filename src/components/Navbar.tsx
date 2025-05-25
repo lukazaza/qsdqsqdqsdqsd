@@ -47,10 +47,10 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleMusicPlayer }) => {
       transition={{ duration: 0.5 }}
     >
       <div className="container mx-auto px-4 py-4">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <Link to="/" className="flex items-center space-x-2 mb-4 md:mb-0">
+        <div className="flex items-center justify-between">
+          <Link to="/" className="flex items-center space-x-2">
             <motion.div 
-              className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent"
+              className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent"
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
@@ -58,7 +58,16 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleMusicPlayer }) => {
             </motion.div>
           </Link>
 
-          <div className="flex items-center space-x-6">
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="lg:hidden text-white hover:text-purple-400 transition-colors"
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center space-x-6">
             {navItems.map((item) => (
               <Link 
                 key={item.path}
@@ -81,7 +90,8 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleMusicPlayer }) => {
             </button>
           </div>
 
-          <div className="flex items-center space-x-4">
+          {/* Desktop Auth */}
+          <div className="hidden lg:flex items-center space-x-4">
             {isAuthenticated ? (
               <div className="flex items-center space-x-3">
                 <div className="flex items-center space-x-2">
@@ -90,7 +100,7 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleMusicPlayer }) => {
                     alt={user?.name} 
                     className="w-8 h-8 rounded-full object-cover border-2 border-purple-500" 
                   />
-                  <span className="text-white text-sm hidden lg:inline">{user?.name}</span>
+                  <span className="text-white text-sm">{user?.name}</span>
                 </div>
                 <button 
                   onClick={logout}
@@ -110,6 +120,73 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleMusicPlayer }) => {
             )}
           </div>
         </div>
+
+        {/* Mobile Navigation */}
+        <motion.div
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ 
+            height: isMenuOpen ? 'auto' : 0,
+            opacity: isMenuOpen ? 1 : 0
+          }}
+          transition={{ duration: 0.3 }}
+          className={`lg:hidden overflow-hidden ${isMenuOpen ? 'mt-4' : ''}`}
+        >
+          <div className="flex flex-col space-y-4">
+            {navItems.map((item) => (
+              <Link 
+                key={item.path}
+                to={item.path} 
+                onClick={() => setIsMenuOpen(false)}
+                className={`text-white hover:text-purple-300 transition-colors flex items-center space-x-2 ${
+                  isActive(item.path) ? 'font-bold text-purple-300' : ''
+                }`}
+              >
+                {item.icon}
+                <span>{item.label}</span>
+              </Link>
+            ))}
+            
+            <button
+              onClick={() => {
+                onToggleMusicPlayer();
+                setIsMenuOpen(false);
+              }}
+              className="text-white hover:text-purple-300 transition-colors flex items-center space-x-2"
+            >
+              <Music size={18} />
+              <span>Player</span>
+            </button>
+
+            {/* Mobile Auth */}
+            {isAuthenticated ? (
+              <div className="flex items-center justify-between pt-4 border-t border-purple-900">
+                <div className="flex items-center space-x-2">
+                  <img 
+                    src={user?.avatar} 
+                    alt={user?.name} 
+                    className="w-8 h-8 rounded-full object-cover border-2 border-purple-500" 
+                  />
+                  <span className="text-white text-sm">{user?.name}</span>
+                </div>
+                <button 
+                  onClick={logout}
+                  className="text-white hover:text-purple-300 transition-colors"
+                  aria-label="Se déconnecter"
+                >
+                  <LogOut size={20} />
+                </button>
+              </div>
+            ) : (
+              <Link 
+                to="/login" 
+                onClick={() => setIsMenuOpen(false)}
+                className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md transition-colors text-center"
+              >
+                Connexion Google
+              </Link>
+            )}
+          </div>
+        </motion.div>
       </div>
     </motion.nav>
   );
