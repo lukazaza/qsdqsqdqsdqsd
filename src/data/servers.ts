@@ -2,7 +2,7 @@ import { DiscordServer } from '../types';
 
 export const discordServers: DiscordServer[] = [
   {
-    id: '1',
+    id: '2',
     name: 'Reload Ta Pub',
     description: 'Serveur du fondateur AyviTV & Wayzen!',
     category: 'advertising',
@@ -14,14 +14,14 @@ export const discordServers: DiscordServer[] = [
     promotionLevel: 'premium'
   },
   {
-    id: '2',
-    name: '#Soon',
-    description: '',
-    category: '',
-    inviteLink: '',
-    iconUrl: 'https://images.pexels.com/photos/3165335/pexels-photo-3165335.jpeg?auto=compress&cs=tinysrgb&w=150',
-    memberCount: 0,
-    boostLevel: 0
+    id: '1',
+    name: 'Le Repère des graphistes',
+    description: '🎨 Tu crées, testes et explores, mais tu as parfois l’impression de tourner en rond ? Tu n’es pas seul(e) : beaucoup de graphistes passionné(e)s se posent les mêmes questions, et c’est tout à fait normal. 🌟 C’est pourquoi on a lancé Le Repère des Graphistes, un serveur Discord pensé pour toi. Tu y trouveras des retours bienveillants, des ressources utiles, des défis stimulants et une vraie communauté de créatif(ve)s. Ici, pas de pression : juste du partage, de l’entraide et de la motivation pour avancer ensemble.',
+    category: 'graphiste',
+    inviteLink: 'https://discord.gg/EjKBs4kf6k',
+    iconUrl: 'https://media.discordapp.net/attachments/1376254397952299139/1376271382979154141/Sans_titre_89_20250306070915.png?ex=6834b81b&is=6833669b&hm=826d935d716686044299cf85455cfc66ed16e1a728e83b50feda92b2591c7c62&=&format=webp&quality=lossless&width=856&height=856',
+    memberCount: 341,
+    boostLevel: 10
   },
   {
     id: '3',
