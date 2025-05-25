@@ -43,3 +43,4 @@ export const songs: Song[] = [
     url: 'https://www.youtube.com/watch?v=D0mMlJ6P7Rw',
     coverArt: 'https://cdn.discordapp.com/attachments/1376224460301930627/1376231562290659358/ab67616d0000b273dfc950ea8ef5cf436cf1c6d4.png?ex=68349305&is=68334185&hm=6a09e630f0574d9186ae96e36f4231e088cbd61910fa261a3faea24d227bcdc9&',
   },
+]    
