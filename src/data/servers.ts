@@ -1,51 +1,5 @@
 import { DiscordServer } from '../types';
 
-// Generate 100 sample servers for the ranking
-const generateRankedServers = (): DiscordServer[] => {
-  const servers: DiscordServer[] = [];
-  
-  for (let i = 1; i <= 100; i++) {
-    servers.push({
-      id: `ranked-${i}`,
-      name: `Top Server #${i}`,
-      description: `One of the best Discord servers in our network. Ranked #${i} for its active community and excellent content.`,
-      category: i % 4 === 0 ? 'gaming' : i % 3 === 0 ? 'community' : i % 2 === 0 ? 'advertising' : 'other',
-      inviteLink: 'https://discord.gg/example',
-      iconUrl: `https://images.pexels.com/photos/${2885014 + i}/pexels-photo-${2885014 + i}.jpeg?auto=compress&cs=tinysrgb&w=150`,
-      memberCount: 100000 - (i * 800) + Math.floor(Math.random() * 1000),
-      boostLevel: Math.max(1, Math.floor((100 - i) / 20)),
-      ranking: i
-    });
-  }
-  
-  return servers;
-};
-
-export const rankedServers = generateRankedServers();
-
-export const serverCategories = [
-  { id: 'gaming', name: 'Gaming', icon: '🎮' },
-  { id: 'community', name: 'Community', icon: '👥' },
-  { id: 'advertising', name: 'Advertising', icon: '📢' },
-  { id: 'art', name: 'Art & Design', icon: '🎨' },
-  { id: 'music', name: 'Music', icon: '🎵' },
-  { id: 'education', name: 'Education', icon: '📚' },
-  { id: 'technology', name: 'Technology', icon: '💻' },
-  { id: 'anime', name: 'Anime & Manga', icon: '🎌' },
-  { id: 'movies', name: 'Movies & TV', icon: '🎬' },
-  { id: 'sports', name: 'Sports', icon: '⚽' },
-  { id: 'science', name: 'Science', icon: '🔬' },
-  { id: 'food', name: 'Food & Cooking', icon: '🍳' },
-  { id: 'pets', name: 'Pets & Animals', icon: '🐾' },
-  { id: 'books', name: 'Books & Writing', icon: '📖' },
-  { id: 'photography', name: 'Photography', icon: '📸' },
-  { id: 'fashion', name: 'Fashion', icon: '👗' },
-  { id: 'fitness', name: 'Fitness', icon: '💪' },
-  { id: 'travel', name: 'Travel', icon: '✈️' },
-  { id: 'business', name: 'Business', icon: '💼' },
-  { id: 'other', name: 'Other', icon: '🌟' }
-];
-
 export const discordServers: DiscordServer[] = [
   {
     id: '2',
@@ -59,7 +13,26 @@ export const discordServers: DiscordServer[] = [
     promoted: true,
     promotionLevel: 'premium'
   },
-  // Add more servers here...
+  {
+    id: '1',
+    name: 'Le Repère des graphistes',
+    description: '🎨 Tu crées, testes et explores, mais tu as parfois l’impression de tourner en rond ? Tu n’es pas seul(e) : beaucoup de graphistes passionné(e)s se posent les mêmes questions, et c’est tout à fait normal. 🌟 C’est pourquoi on a lancé Le Repère des Graphistes, un serveur Discord pensé pour toi. Tu y trouveras des retours bienveillants, des ressources utiles, des défis stimulants et une vraie communauté de créatif(ve)s. Ici, pas de pression : juste du partage, de l’entraide et de la motivation pour avancer ensemble.',
+    category: 'graphiste',
+    inviteLink: 'https://discord.gg/EjKBs4kf6k',
+    iconUrl: 'https://media.discordapp.net/attachments/1376254397952299139/1376271382979154141/Sans_titre_89_20250306070915.png?ex=6834b81b&is=6833669b&hm=826d935d716686044299cf85455cfc66ed16e1a728e83b50feda92b2591c7c62&=&format=webp&quality=lossless&width=856&height=856',
+    memberCount: 341,
+    boostLevel: 10
+  },
+  {
+    id: '3',
+    name: '#Soon',
+    description: '',
+    category: '',
+    inviteLink: '',
+    iconUrl: 'https://images.pexels.com/photos/2755075/pexels-photo-2755075.jpeg?auto=compress&cs=tinysrgb&w=150',
+    memberCount: 0,
+    boostLevel: 0
+  }
 ];
 
 export const promotedServers: DiscordServer[] = [
@@ -75,5 +48,31 @@ export const promotedServers: DiscordServer[] = [
     promoted: true,
     promotionLevel: 'ultimate'
   },
-  // Add more promoted servers...
+  {
+    id: 'promo2',
+    name: 'Anime World',
+    description: 'Your one-stop destination for all things anime! Discussion, watch parties, and fan art sharing.',
+    category: 'community',
+    inviteLink: 'https://discord.gg/example2',
+    iconUrl: 'https://images.pexels.com/photos/2882566/pexels-photo-2882566.jpeg?auto=compress&cs=tinysrgb&w=150',
+    memberCount: 8000,
+    boostLevel: 2,
+    promoted: true,
+    promotionLevel: 'premium'
+  }
 ];
+
+// Sort and rank servers based on member count and boost level
+export const getRankedServers = () => {
+  return discordServers
+    .sort((a, b) => {
+      // Calculate score based on member count and boost level
+      const scoreA = a.memberCount + (a.boostLevel * 10);
+      const scoreB = b.memberCount + (b.boostLevel * 10);
+      return scoreB - scoreA;
+    })
+    .map((server, index) => ({
+      ...server,
+      ranking: index + 1
+    }));
+};

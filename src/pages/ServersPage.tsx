@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Navigate } from 'react-router-dom';
 import ServerCard from '../components/ServerCard';
-import { discordServers, promotedServers, serverCategories } from '../data/servers';
+import { discordServers, promotedServers } from '../data/servers';
 import { Search, Filter, Zap, Crown } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -25,6 +25,14 @@ const ServersPage: React.FC = () => {
     
     return matchesSearch && matchesCategory;
   });
+
+  const categories = [
+    { value: 'all', label: 'All Categories' },
+    { value: 'gaming', label: 'Gaming' },
+    { value: 'community', label: 'Community' },
+    { value: 'advertising', label: 'Advertising' },
+    { value: 'other', label: 'Other' },
+  ];
 
   return (
     <div className="min-h-screen bg-[#0F0518] pt-24 pb-20">
@@ -51,25 +59,12 @@ const ServersPage: React.FC = () => {
             </button>
           </div>
 
-          <div className="mb-8">
-            <div className="flex flex-wrap gap-2">
-              {serverCategories.map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => setSelectedCategory(category.id)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full transition-colors ${
-                    selectedCategory === category.id
-                      ? 'bg-purple-600 text-white'
-                      : 'bg-[#1A0F2E] text-purple-400 hover:bg-purple-600/20'
-                  }`}
-                >
-                  <span>{category.icon}</span>
-                  <span>{category.name}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-
+          <p className="text-gray-300 mb-8 max-w-2xl">
+            {showPromoted 
+              ? 'Discover our featured servers with enhanced visibility and premium benefits.'
+              : 'Discover and join the best Discord servers in our network. Each server is verified for quality and active community.'}
+          </p>
+          
           <div className="flex flex-col md:flex-row gap-4 mb-10">
             <div className="relative flex-grow">
               <Search size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
@@ -80,6 +75,26 @@ const ServersPage: React.FC = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full bg-[#1A0F2E] border border-purple-900 rounded-md py-3 pl-10 pr-4 text-white focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
               />
+            </div>
+            
+            <div className="relative md:w-72">
+              <Filter size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="w-full bg-[#1A0F2E] border border-purple-900 rounded-md py-3 pl-10 pr-4 text-white appearance-none focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+              >
+                {categories.map((category) => (
+                  <option key={category.value} value={category.value}>
+                    {category.label}
+                  </option>
+                ))}
+              </select>
+              <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
             </div>
           </div>
           
