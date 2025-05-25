@@ -6,7 +6,6 @@ import { discordServers } from '../data/servers';
 const RankedServersPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const serversPerPage = 10;
-  const totalPages = Math.ceil(discordServers.length / serversPerPage);
 
   const getRankBadge = (rank: number) => {
     switch (rank) {
@@ -21,37 +20,41 @@ const RankedServersPage: React.FC = () => {
     }
   };
 
+  const startIndex = (currentPage - 1) * serversPerPage;
+  const endIndex = startIndex + serversPerPage;
+  const totalPages = 5; // Fixed to 5 pages as requested
+
   return (
     <div className="min-h-screen bg-[#0F0518] pt-24 pb-20">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-8">Server Rankings</h1>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-8">Server Rankings</h1>
 
           <div className="grid gap-4">
-            {discordServers.slice(0, 3).map((server, index) => (
+            {discordServers.slice(startIndex, endIndex).map((server, index) => (
               <motion.div
                 key={server.id}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-gradient-to-r from-[#1A0F2E] to-[#2D1B4E] rounded-lg p-6 flex items-center gap-6"
+                className="bg-gradient-to-r from-[#1A0F2E] to-[#2D1B4E] rounded-lg p-4 sm:p-6 flex flex-col sm:flex-row items-center gap-4 sm:gap-6"
               >
                 <div className="flex-shrink-0">
-                  {getRankBadge(index + 1)}
+                  {getRankBadge(startIndex + index + 1)}
                 </div>
                 
                 <img
                   src={server.iconUrl}
                   alt={server.name}
-                  className="w-16 h-16 rounded-full object-cover border-2 border-purple-500"
+                  className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-purple-500"
                 />
                 
-                <div className="flex-grow">
-                  <h3 className="text-xl font-bold text-white">{server.name}</h3>
+                <div className="flex-grow text-center sm:text-left">
+                  <h3 className="text-lg sm:text-xl font-bold text-white">{server.name}</h3>
                   <p className="text-purple-400">{server.memberCount.toLocaleString()} members</p>
                 </div>
 
@@ -59,34 +62,10 @@ const RankedServersPage: React.FC = () => {
                   href={server.inviteLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-md transition-colors"
+                  className="bg-purple-600 hover:bg-purple-700 text-white px-4 sm:px-6 py-2 rounded-md transition-colors text-sm sm:text-base"
                 >
                   Join
                 </a>
-              </motion.div>
-            ))}
-
-            {/* Empty Slots */}
-            {Array.from({ length: 7 }).map((_, index) => (
-              <motion.div
-                key={`empty-${index}`}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: (index + 3) * 0.1 }}
-                className="bg-[#1A0F2E] rounded-lg p-6 flex items-center gap-6"
-              >
-                <div className="flex-shrink-0">
-                  <span className="text-lg font-bold text-purple-400">#{index + 4}</span>
-                </div>
-                
-                <div className="w-16 h-16 rounded-full bg-purple-900/20 flex items-center justify-center">
-                  <span className="text-purple-400">?</span>
-                </div>
-                
-                <div className="flex-grow">
-                  <h3 className="text-xl font-bold text-gray-500">Available Slot</h3>
-                  <p className="text-purple-400/50">Waiting for server</p>
-                </div>
               </motion.div>
             ))}
           </div>
@@ -101,9 +80,21 @@ const RankedServersPage: React.FC = () => {
               <ChevronLeft size={24} />
             </button>
             
-            <span className="text-white">
-              Page {currentPage} of {totalPages}
-            </span>
+            <div className="flex gap-2">
+              {Array.from({ length: totalPages }, (_, i) => (
+                <button
+                  key={i + 1}
+                  onClick={() => setCurrentPage(i + 1)}
+                  className={`w-8 h-8 rounded-full ${
+                    currentPage === i + 1
+                      ? 'bg-purple-600 text-white'
+                      : 'text-white hover:bg-purple-600/20'
+                  }`}
+                >
+                  {i + 1}
+                </button>
+              ))}
+            </div>
             
             <button
               onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
