@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Crown, Medal, Trophy, ChevronLeft, ChevronRight } from 'lucide-react';
-import { discordServers } from '../data/servers';
+import { Crown, Medal, Trophy, ChevronLeft, ChevronRight, Search, Filter } from 'lucide-react';
+import { rankedServers } from '../data/servers';
 
 const RankedServersPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const serversPerPage = 10;
+  const [searchTerm, setSearchTerm] = useState('');
+  const serversPerPage = 20;
+
+  const filteredServers = rankedServers.filter(server => 
+    server.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    server.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const getRankBadge = (rank: number) => {
     switch (rank) {
@@ -22,50 +28,72 @@ const RankedServersPage: React.FC = () => {
 
   const startIndex = (currentPage - 1) * serversPerPage;
   const endIndex = startIndex + serversPerPage;
-  const totalPages = 5; // Fixed to 5 pages as requested
+  const totalPages = Math.ceil(filteredServers.length / serversPerPage);
+  const currentServers = filteredServers.slice(startIndex, endIndex);
 
   return (
     <div className="min-h-screen bg-[#0F0518] pt-24 pb-20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-8">Server Rankings</h1>
+          <div className="flex flex-col md:flex-row justify-between items-center mb-8">
+            <h1 className="text-3xl font-bold text-white mb-4 md:mb-0">Server Rankings</h1>
+            
+            <div className="w-full md:w-auto flex gap-4">
+              <div className="relative flex-grow md:w-64">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                <input
+                  type="text"
+                  placeholder="Search servers..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full bg-[#1A0F2E] border border-purple-900 rounded-md py-2 pl-10 pr-4 text-white focus:outline-none focus:ring-2 focus:ring-purple-600"
+                />
+              </div>
+            </div>
+          </div>
 
           <div className="grid gap-4">
-            {discordServers.slice(startIndex, endIndex).map((server, index) => (
+            {currentServers.map((server) => (
               <motion.div
                 key={server.id}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-gradient-to-r from-[#1A0F2E] to-[#2D1B4E] rounded-lg p-4 sm:p-6 flex flex-col sm:flex-row items-center gap-4 sm:gap-6"
+                transition={{ duration: 0.3 }}
+                className="bg-gradient-to-r from-[#1A0F2E] to-[#2D1B4E] rounded-lg p-6 flex items-center gap-6"
               >
-                <div className="flex-shrink-0">
-                  {getRankBadge(startIndex + index + 1)}
+                <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center">
+                  {getRankBadge(server.ranking)}
                 </div>
                 
                 <img
                   src={server.iconUrl}
                   alt={server.name}
-                  className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-purple-500"
+                  className="w-16 h-16 rounded-full object-cover border-2 border-purple-500"
                 />
                 
-                <div className="flex-grow text-center sm:text-left">
-                  <h3 className="text-lg sm:text-xl font-bold text-white">{server.name}</h3>
+                <div className="flex-grow">
+                  <h3 className="text-xl font-bold text-white">{server.name}</h3>
                   <p className="text-purple-400">{server.memberCount.toLocaleString()} members</p>
+                  <p className="text-gray-400 mt-2 line-clamp-2">{server.description}</p>
                 </div>
 
-                <a
-                  href={server.inviteLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-purple-600 hover:bg-purple-700 text-white px-4 sm:px-6 py-2 rounded-md transition-colors text-sm sm:text-base"
-                >
-                  Join
-                </a>
+                <div className="flex-shrink-0 flex flex-col items-end gap-2">
+                  <div className="text-purple-400">
+                    Level {server.boostLevel}
+                  </div>
+                  <a
+                    href={server.inviteLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-md transition-colors"
+                  >
+                    Join
+                  </a>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -81,19 +109,29 @@ const RankedServersPage: React.FC = () => {
             </button>
             
             <div className="flex gap-2">
-              {Array.from({ length: totalPages }, (_, i) => (
-                <button
-                  key={i + 1}
-                  onClick={() => setCurrentPage(i + 1)}
-                  className={`w-8 h-8 rounded-full ${
-                    currentPage === i + 1
-                      ? 'bg-purple-600 text-white'
-                      : 'text-white hover:bg-purple-600/20'
-                  }`}
-                >
-                  {i + 1}
-                </button>
-              ))}
+              {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                let pageNumber = i + 1;
+                if (currentPage > 3 && totalPages > 5) {
+                  pageNumber = currentPage - 2 + i;
+                }
+                if (currentPage > totalPages - 2) {
+                  pageNumber = totalPages - 4 + i;
+                }
+                
+                return (
+                  <button
+                    key={pageNumber}
+                    onClick={() => setCurrentPage(pageNumber)}
+                    className={`w-10 h-10 rounded-lg ${
+                      currentPage === pageNumber
+                        ? 'bg-purple-600 text-white'
+                        : 'text-white hover:bg-purple-600/20'
+                    }`}
+                  >
+                    {pageNumber}
+                  </button>
+                );
+              })}
             </div>
             
             <button
