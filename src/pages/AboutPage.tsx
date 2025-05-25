@@ -30,21 +30,17 @@ const AboutPage: React.FC = () => {
           
           {/* Mission Statement */}
           <div className="bg-[#1A0F2E] rounded-lg p-8 mb-12">
-            <h2 className="text-2xl font-bold text-white mb-4">Our Mission</h2>
+            <h2 className="text-2xl font-bold text-white mb-4">Notre Mission</h2>
             <p className="text-gray-300 mb-6 text-lg">
-              Reload is a premier Discord advertising server dedicated to helping community owners grow 
-              their servers and connect with like-minded individuals. We provide a platform where quality 
-              Discord communities can showcase their servers and attract new members.
+              Reload est un serveur de publicité Discord de premier plan, dédié à aider les propriétaires de communautés à développer                  leurs serveurs et à se connecter avec des personnes partageant les mêmes idées. Nous offrons une plateforme où des communautés Discord de qualité peuvent présenter leurs serveurs et attirer de nouveaux membres.
             </p>
             <p className="text-gray-300 text-lg">
-              Founded in 2025, Reload has grown to become a hub for Discord server discovery, 
-              with a focus on quality over quantity. We carefully review all servers to ensure 
-              they meet our standards for activity, moderation, and content.
+              Fondé en 2025, Reload est devenu un centre de découverte de serveurs Discord, mettant l'accent sur la qualité plutôt que                 sur la quantité. Nous examinons soigneusement tous les serveurs pour nous assurer qu'ils répondent à nos normes en matière               d'activité, de modération et de contenu.
             </p>
           </div>
           
           {/* Founders Section */}
-          <h2 className="text-2xl font-bold text-white mb-6">Meet Our Founders</h2>
+          <h2 className="text-2xl font-bold text-white mb-6">Rencontrez nos fondateurs</h2>
           <div className="grid md:grid-cols-2 gap-8 mb-12">
             {founders.map((founder, index) => (
               <motion.div
@@ -59,7 +55,7 @@ const AboutPage: React.FC = () => {
           </div>
           
           {/* Community Stats */}
-          <h2 className="text-2xl font-bold text-white mb-6">Our Community</h2>
+          <h2 className="text-2xl font-bold text-white mb-6">Notre communauté</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
             <div className="bg-[#1A0F2E] rounded-lg p-6 text-center">
               <h3 className="text-4xl font-bold text-purple-400 mb-2">41</h3>
@@ -85,7 +81,7 @@ const AboutPage: React.FC = () => {
             <div className="mb-6 pb-6 border-b border-purple-900">
               <div className="flex justify-between items-center mb-2">
                 <h3 className="text-xl font-bold text-white">Website Launch</h3>
-                <span className="text-purple-400 text-sm">July 15, 2023</span>
+                <span className="text-purple-400 text-sm">25-05-2025</span>
               </div>
               <p className="text-gray-300">
                 We're excited to announce the launch of our new website! Now you can browse 
@@ -96,7 +92,7 @@ const AboutPage: React.FC = () => {
             <div className="mb-6 pb-6 border-b border-purple-900">
               <div className="flex justify-between items-center mb-2">
                 <h3 className="text-xl font-bold text-white">Server Verification System</h3>
-                <span className="text-purple-400 text-sm">June 20, 2023</span>
+                <span className="text-purple-400 text-sm">25-05-2025</span>
               </div>
               <p className="text-gray-300">
                 We've implemented a new verification system to ensure all servers in our network 
