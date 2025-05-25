@@ -19,7 +19,7 @@ export const songs: Song[] = [
     id: '3',
     title: 'GIMS - CIEL',
     artist: 'gims',
-    url: 'https://images.genius.com/57e298ae08696e365d2b408c4c9ebec1.1000x1000x1.jpg',
-    coverArt: '',
+    url: 'https://www.youtube.com/watch?v=KG6ft_YDp5k',
+    coverArt: 'https://images.genius.com/57e298ae08696e365d2b408c4c9ebec1.1000x1000x1.jpg',
   },
 ];
