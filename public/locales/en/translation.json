@@ -1,0 +1,35 @@
+{
+  "nav": {
+    "home": "Home",
+    "servers": "Servers",
+    "ranked": "Ranked",
+    "shop": "Shop",
+    "about": "About",
+    "radio": "Radio",
+    "login": "Login",
+    "logout": "Logout"
+  },
+  "home": {
+    "title": "ReloadWeb",
+    "subtitle": "Connect with the ultimate Discord advertising server. Grow your community.",
+    "cta": {
+      "browse": "Browse Servers",
+      "login": "Login with Discord",
+      "learnMore": "Learn More"
+    }
+  },
+  "servers": {
+    "title": "Discord Servers",
+    "featured": "Featured Servers",
+    "search": "Search servers...",
+    "categories": {
+      "all": "All Categories",
+      "gaming": "Gaming",
+      "community": "Community",
+      "advertising": "Advertising",
+      "other": "Other"
+    },
+    "moreInfo": "Learn More",
+    "join": "Join"
+  }
+}

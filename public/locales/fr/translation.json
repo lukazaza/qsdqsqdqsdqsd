@@ -1,0 +1,35 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "servers": "Serveurs",
+    "ranked": "Classement",
+    "shop": "Boutique",
+    "about": "À propos",
+    "radio": "Radio",
+    "login": "Connexion",
+    "logout": "Déconnexion"
+  },
+  "home": {
+    "title": "ReloadWeb",
+    "subtitle": "Connectez-vous avec le meilleur serveur de publicité Discord. Développez votre communauté.",
+    "cta": {
+      "browse": "Parcourir les serveurs",
+      "login": "Connexion avec Discord",
+      "learnMore": "En savoir plus"
+    }
+  },
+  "servers": {
+    "title": "Serveurs Discord",
+    "featured": "Serveurs en vedette",
+    "search": "Rechercher des serveurs...",
+    "categories": {
+      "all": "Toutes les catégories",
+      "gaming": "Jeux",
+      "community": "Communauté",
+      "advertising": "Publicité",
+      "other": "Autre"
+    },
+    "moreInfo": "En savoir plus",
+    "join": "Rejoindre"
+  }
+}

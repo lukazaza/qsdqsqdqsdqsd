@@ -14,6 +14,7 @@ import RankedServersPage from './pages/RankedServersPage';
 import AboutPage from './pages/AboutPage';
 import ShopPage from './pages/ShopPage';
 import RadioPage from './pages/RadioPage';
+import EasterEgg from './components/EasterEgg';
 
 function App() {
   const [isMusicPlayerOpen, setIsMusicPlayerOpen] = useState(false);
@@ -48,11 +49,10 @@ function App() {
                 },
               }} 
             />
+            <EasterEgg />
           </div>
         </Router>
       </MusicProvider>
     </AuthProvider>
   );
 }
-
-export default App;
